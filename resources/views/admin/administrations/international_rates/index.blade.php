@@ -48,8 +48,8 @@
               <td>{{ number_format(bcdiv(($international_rate->maximum_weight), '1', 2), 2, ',', '.') }}</td>
               <td>{{$international_rate->shipping_type}}</td>
               <td>{{ number_format(bcdiv(($international_rate->price), '1', 2), 2, ',', '.')}}</td>
-              <td></td>
-              <td></td>
+              <td>{{$international_rate->state_origin->countries['name']}}</td>
+              <td>{{$international_rate->state_destination->countries['name']}}</td>
               <td>
                 <a href="{{ route('international_rates.edit',$international_rate->id) }}"  title="Editar"><i class="fa fa-edit"></i></a>
                 <a href="#" class="delete" data-id-international_rate={{$international_rate->id}} data-toggle="modal" data-target="#deleteModal" title="Eliminar"><i class="fa fa-trash text-danger"></i></a>  
