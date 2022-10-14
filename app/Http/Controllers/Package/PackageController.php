@@ -21,6 +21,7 @@ use App\Models\Package\PackageTypeOfGood;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Nette\Utils\ArrayList;
 
 class PackageController extends Controller
 {
@@ -55,7 +56,9 @@ class PackageController extends Controller
                             ,'delivery_companies.description as delivery_company_name'
                             ,'packages.service_type','packages.instruction','packages.number_transport_guide'
                             ,'packages.instruction_type','package_lumps.length_weight','package_lumps.width_weight','package_lumps.high_weight'
-                            ,'packages.id_tula','packages.id_paddle')
+                            ,'packages.id_tula','packages.id_paddle'
+                            ,'packages.dangerous_goods','packages.sed'
+                            ,'packages.document','packages.fragile')
                             ->groupBy('packages.id','packages.id_agent_shipper','packages.id_agent_vendor',
                                     'agencies_client.name','agent_shipper.name',
                                     'packages.tracking','packages.status','clients.direction','clients.street_received','clients.urbanization_received','clients.casillero','clients.firstname','clients.firstlastname','clients.type_cedula','clients.id_agency','clients.cedula',
@@ -64,7 +67,9 @@ class PackageController extends Controller
                                     ,'destination_country.name','countries.name'
                                     ,'delivery_companies.description','packages.service_type','packages.instruction','packages.number_transport_guide'
                                     ,'packages.instruction_type','package_lumps.length_weight','package_lumps.width_weight','package_lumps.high_weight'
-                                    ,'packages.id_tula','packages.id_paddle')
+                                    ,'packages.id_tula','packages.id_paddle'
+                                     ,'packages.dangerous_goods','packages.sed'
+                                    ,'packages.document','packages.fragile')
                             ->orderBy('packages.id','desc')
                             ->get();
 
@@ -76,10 +81,14 @@ class PackageController extends Controller
             }
         }
 
+      
         $agencies = Agency::orderBy('name','asc')->get();
 
         $wharehouses = Wharehouse::orderBy('name','asc')->get();
-       
+
+      
+        
+      
         return view('admin.packages.index',compact('packages','agencies','wharehouses'));
     
     }
