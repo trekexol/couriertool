@@ -154,6 +154,7 @@
                $cubic_foot += $package->cubic_foot;
                $starting_weight += $package->starting_weight;
                $volume += $package->volume;
+
            @endphp
             <tr>
               <td class="text-center">
@@ -190,8 +191,52 @@
                 <a href="{{ route('packages.print',$package->id) }}"  title="Imprimir Etiquetas"><i class="fa fa-print"></i></a>
                 <a href="{{ route('historial_status.viewPackage',$package->id) }}"  title="Ver Historial de Status"><i class="fa fa-question"></i></a>
                 <a href="#" class="delete" data-id-package={{$package->id}} data-toggle="modal" data-target="#deleteModal" title="Eliminar"><i class="fa fa-trash text-danger"></i></a>  
-                <a href="#"  data-id-package={{$package->id}} data-toggle="modal" data-target="#showModal" title="Mostrar"><i class="fa fa-search"></i></a>  
+                <a href="#" id="btnViewModal"
+                  data-id="{{$package->id ?? null}}" 
+                  data-tracking="{{$package->tracking ?? null}}" 
+                  data-direction="{{$package->direction ?? null}}" 
+                  data-street_received="{{$package->street_received ?? null}}" 
+                  data-urbanization_received="{{$package->urbanization_received ?? null}}" 
+                  data-name_agency_client="{{$package->name_agency_client ?? null}}" 
+                  data-agent_shipper_name="{{$package->agent_shipper_name ?? null}}" 
+                  data-agent_name="{{$package->agent_name ?? null}}" 
+                  data-casillero="{{$package->casillero ?? null}}" 
+                  data-firstname="{{$package->firstname ?? null}}" 
+                  data-firstlastname="{{$package->firstlastname ?? null}}" 
+                  data-agent_name_vendor="{{$package->agent_name_vendor ?? null}}" 
+                  data-arrival_date="{{$package->arrival_date ?? null}}" 
+                  data-agency_name="{{$package->agency_name ?? null}}" 
+                  data-wharehouse_name="{{$package->wharehouse_name ?? null}}" 
+                  data-arrival_date="{{$package->arrival_date ?? null}}" 
+                  data-content="{{$package->content ?? null}}" 
+                  data-value="{{$package->value ?? null}}" 
+                  data-country_name="{{$package->country_name ?? null}}" 
+                  data-destination_country_name="{{$package->destination_country_name ?? null}}" 
+                  data-delivery_company_name="{{$package->delivery_company_name ?? null}}" 
+                  data-service_type="{{$package->service_type ?? null}}" 
+                  data-instruction="{{$package->instruction ?? null}}" 
+                  data-instruction_type="{{$package->instruction_type ?? null}}"
+                  data-description="{{$package->description ?? null}}"
+                  data-status="{{$package->status ?? null}}"
+
+                  data-dangerous_goods="{{$package->dangerous_goods ?? null}}"
+                  data-sed="{{$package->sed ?? null}}"
+                  data-document="{{$package->document ?? null}}"
+                  data-fragile="{{$package->fragile ?? null}}"
+
+                  data-starting_weight="{{$package->starting_weight ?? 0}}"
+                  data-final_weight="{{$package->final_weight ?? 0}}"
+                  data-volume="{{$package->volume ?? 0}}"
+                  data-length_weight="{{$package->length_weight ?? 0}}"
+                  data-high_weight="{{$package->high_weight ?? 0}}"
+                  data-width_weight="{{$package->width_weight ?? 0}}"
+                  data-guide="{{$package->guide ?? 0}}"
+                  data-id_tula="{{$package->id_tula ?? 0}}"
+                  data-id_paddle="{{$package->id_paddle ?? 0}}"
+                  
+                  data-toggle="modal" data-target="#showModal" title="Mostrar"><i class="fa fa-search"></i></a>  
               </td>
+             
             </tr>
             @endforeach
             <tfoot>
@@ -264,119 +309,111 @@
       <br>
       <div class="row">
       <div class="offset-sm-1 col-sm-6">
-        <h6><strong>Identificación del paquete:</strong>  {{ str_pad($package->id ?? 0, 6, "0", STR_PAD_LEFT)}}</h6>
+        <h6 id="id_modal"></h6>
       </div>
       </div>
     @endisset
   
     <div class="row">
-      <label class="col-form-label offset-sm-1 col-sm-11 label-align-left " style="font-size: x-small" for="id_client"><strong>Cliente:</strong> {{ $package->casillero ?? '' }} - {{ $package->firstname ?? '' }} {{ $package->secondname ?? '' }} {{ $package->firstlastname ?? '' }} {{ $package->secondlastname ?? '' }}</label>
+      <label class="col-form-label offset-sm-1 col-sm-11 label-align-left" id="client_modal" style="font-size: x-small" for="id_client"></label>
     </div>
     <div class="row">
-      <label class="col-form-label offset-sm-1 col-sm-11 label-align-left"  style="font-size: x-small" for="id_direccion"><strong>Dirección:</strong>  {{ $package->direction ?? '' }}, {{ $package->street_received ?? '' }}, {{ $package->urbanization_received ?? '' }} </label>
+      <label class="col-form-label offset-sm-1 col-sm-11 label-align-left"  id="direction_modal" style="font-size: x-small" for="id_direccion"> </label>
     </div>
     <div class="row">
-      <label class="col-form-label offset-sm-1 col-sm-11 label-align-left"  style="font-size: x-small" for="id_direccion"><strong>Agencia:</strong>  {{ $package->name_agency_client ?? 'Recibe en su Dirección' }}</label>
+      <label class="col-form-label offset-sm-1 col-sm-11 label-align-left"  id="name_agency_client_modal" style="font-size: x-small" > </label>
     </div>
     <div class="row">
-      <label class="col-form-label offset-sm-1 col-sm-11 label-align-left" style="font-size: x-small" for="first-name"><strong>Agente Vendedor:</strong> {{ $package->agent_name ?? '' }}</label>
+      <label class="col-form-label offset-sm-1 col-sm-11 label-align-left" id="agent_name_modal" style="font-size: x-small" for="first-name"> </label>
     </div>
     <div class="row">
-      <label class="col-form-label offset-sm-1 col-sm-11 label-align-left" style="font-size: x-small" for="first-name"><strong>Vendedor:</strong> {{ $package->agent_shipper_name ?? '' }}</label>
+      <label class="col-form-label offset-sm-1 col-sm-11 label-align-left" id="agent_shipper_name_modal" style="font-size: x-small" for="first-name"> </label>
     </div>
     <div class="row">
-      <label class="col-form-label offset-sm-1 col-sm-6 label-align-left" style="font-size: x-small"> <strong>Fecha Llegada:</strong> {{ date_format(date_create($package->arrival_date ?? $datenow ??null),"Y-m-d") }}</label>
-      <label class="col-form-label col-sm-5 label-align-left" style="font-size: x-small"> <strong>Hora Llegada:</strong> {{ date_format(date_create($package->arrival_date ?? $datenow  ?? null),"H:i") }}</label>
+      <label class="col-form-label offset-sm-1 col-sm-6 label-align-left" id="arrival_date_modal" style="font-size: x-small">  </label>
+      <label class="col-form-label col-sm-5 label-align-left" id="arrival_date_check_in_modal" style="font-size: x-small">  </label>
     </div>
     <div class="row">
-      <label class="col-form-label offset-sm-1 col-sm-6 label-align-left " style="font-size: x-small" for="first-name"><strong>Ubicación Oficina:</strong> {{ $package->agency_name ?? ''}}</label>
-      <label class="col-form-label col-sm-5 label-align-left " style="font-size: x-small" for="id_wharehouse"><strong>Almacen:</strong> {{ $package->wharehouse_name ?? '' }}</label>
+      <label class="col-form-label offset-sm-1 col-sm-6 label-align-left " id="agency_name_modal" style="font-size: x-small" for="first-name"> </label>
+      <label class="col-form-label col-sm-5 label-align-left " id="wharehouse_name_modal" style="font-size: x-small" for="id_wharehouse"></label>
     </div>
     <div class="row">
-      <label class="col-form-label offset-sm-1 col-sm-6 label-align-left " style="font-size: x-small" for="content"><strong>Contenido:</strong> {{$package->content ?? ''}}</label>
-      <label class="col-form-label col-sm-5 label-align-left " style="font-size: x-small" for="value"><strong>Valor:</strong> {{ number_format($package->value ?? 0, 2, ',', '.') }}</label>
+      <label class="col-form-label offset-sm-1 col-sm-6 label-align-left " id="content_modal" style="font-size: x-small" for="content"> </label>
+      <label class="col-form-label col-sm-5 label-align-left " id="value_modal" style="font-size: x-small" for="value"></label>
     </div>
     <div class="row">
-      <label class="col-form-label offset-sm-1 col-sm-6 label-align-left " style="font-size: x-small" for="id_origin_country"><strong>Origen:</strong> {{$package->country_name ?? ''}}</label>
-      <label class="col-form-label col-sm-5 label-align-left " style="font-size: x-small" for="id_destination_country"><strong>Destino:</strong> {{$package->destination_country_name ?? ''}}</label>
+      <label class="col-form-label offset-sm-1 col-sm-6 label-align-left " id="country_name_modal" style="font-size: x-small" for="id_origin_country"> </label>
+      <label class="col-form-label col-sm-5 label-align-left " id="destination_country_name_modal" style="font-size: x-small" for="id_destination_country"> </label>
     </div>
     <div class="row"> 
-      <label class="col-form-label offset-sm-1 col-sm-6 label-align-left " style="font-size: x-small" for="id_delivery_company"><strong>Tracking:</strong>{{$package->tracking ?? ''}}</label>
-      <label class="col-form-label col-sm-5 label-align-left " style="font-size: x-small" for="id_delivery_company"><strong>Entregado por:</strong>{{$package->delivery_company_name ?? ''}}</label>
+      <label class="col-form-label offset-sm-1 col-sm-6 label-align-left " id="tracking_modal" style="font-size: x-small" for="id_delivery_company"></label>
+      <label class="col-form-label col-sm-5 label-align-left " id="delivery_company_name_modal" style="font-size: x-small" for="id_delivery_company"></label>
     </div>
     <div class="row"> 
-      <label class="col-form-label offset-sm-1 col-sm-6 label-align-left " style="font-size: x-small" for="service_type"><strong>Tipo Servicio:</strong> {{$package->service_type ?? ''}}</label>
-      <label class="col-form-label col-sm-5 label-align-left " style="font-size: x-small" for="instruction"><strong>Instrucciones:</strong> {{ $package->instruction ?? '' }} - {{ $package->instruction_type ?? '' }}</label>
+      <label class="col-form-label offset-sm-1 col-sm-6 label-align-left " id="service_type_modal" style="font-size: x-small" for="service_type"> </label>
+      <label class="col-form-label col-sm-5 label-align-left " id="instruction_modal" style="font-size: x-small" for="instruction"> </label>
     </div>
 
     <div class="row">
-      <label class="col-form-label offset-sm-1 col-sm-6 label-align-left " style="font-size: x-small" for="description"><strong>Descrip/Coment:</strong> {{$package->description ?? ''}}</label>
-      <label class="col-form-label col-sm-5 label-align-left " style="font-size: x-small" for="description"><strong>Estado:</strong> {{$package->status ?? ''}}</label>
+      <label class="col-form-label offset-sm-1 col-sm-6 label-align-left " id="description_modal" style="font-size: x-small" for="description"> </label>
+      <label class="col-form-label col-sm-5 label-align-left " id="status_modal" style="font-size: x-small" for="description"></label>
      
     </div>
     <br>
     <div class="form-group row">
       <div class="offset-sm-1 col-sm-2">
-        @if ($package->dangerous_goods == true)
-          <input type="checkbox" style="font-size: x-small" disabled value="dangerous_goods" checked data-parsley-mincheck="2" /> Merc. Peligrosa:
-        @else
-          <input type="checkbox" style="font-size: x-small" disabled value="dangerous_goods" data-parsley-mincheck="2" /> Merc. Peligrosa:
-        @endif
+       
+          <input type="checkbox" id="dangerous_goods_modal" style="font-size: x-small" disabled value="dangerous_goods" data-parsley-mincheck="2" /> Merc. Peligrosa:
+        
       </div> 
       <div class="col-sm-1">
-        @if ($package->sed == true)
-          <input type="checkbox" style="font-size: x-small" disabled value="sed" checked data-parsley-mincheck="2" /> SED:
-        @else
-          <input type="checkbox" style="font-size: x-small" disabled value="sed" data-parsley-mincheck="2" /> SED:
-        @endif
+       
+          <input type="checkbox" id="sed_modal" style="font-size: x-small" disabled value="sed" data-parsley-mincheck="2" /> SED:
+        
       </div> 
       <div class="col-sm-2">
-        @if ($package->document == true)
-          <input type="checkbox" style="font-size: x-small"disabled  value="document" checked data-parsley-mincheck="2" /> Documento:
-        @else
-          <input type="checkbox" style="font-size: x-small" disabled value="document" data-parsley-mincheck="2" /> Documento:
-        @endif
+       
+          <input type="checkbox" id="document_modal" style="font-size: x-small" disabled value="document" data-parsley-mincheck="2" /> Documento:
+        
       </div> 
       <div class="col-sm-2">
-        @if ($package->fragile == true)
-          <input type="checkbox" style="font-size: x-small" disabled value="fragile" checked data-parsley-mincheck="2" /> Fragil:
-        @else
-          <input type="checkbox" style="font-size: x-small" disabled value="fragile" data-parsley-mincheck="2" /> Fragil:
-        @endif
+       
+          <input type="checkbox" id="fragile_modal" style="font-size: x-small" disabled value="fragile" data-parsley-mincheck="2" /> Fragil:
+        
       </div> 
-      <label class="col-form-label col-sm-4 label-align-left " style="font-size: x-small" for="number_transport_guide"><strong>N° Guía Transporte:</strong> {{$package->number_transport_guide ?? ''}}</label>
+      <label class="col-form-label col-sm-4 label-align-left " id="number_transport_guide_modal" style="font-size: x-small" for="number_transport_guide"><strong>N° Guía Transporte:</strong> {{$package_modal->number_transport_guide ?? ''}}</label>
     </div>
     <div class="row">
-      <label class="col-form-label offset-sm-1 col-sm-2 label-align-left " style="font-size: x-small" ><strong>Peso inicial:</strong> {{$package->starting_weight ?? 0}}</label>
-      <label class="col-form-label col-sm-2 label-align-left " style="font-size: x-small" ><strong>Peso Final:</strong> {{$package->final_weight ?? 0}}</label>
-      <label class="col-form-label col-sm-2 label-align-left " style="font-size: x-small" ><strong>Volumen:</strong> {{$package->volume ?? 0}}</label>
-      <label class="col-form-label col-sm-5 label-align-left " style="font-size: x-small" ><strong>Dimensiones:</strong> {{$package->length_weight ?? 0}} x {{$package->width_weight ?? 0}} x {{$package->high_weight ?? 0}}</label>
+      <label class="col-form-label offset-sm-1 col-sm-2 label-align-left " id="starting_weight_modal" style="font-size: x-small" > </label>
+      <label class="col-form-label col-sm-2 label-align-left " id="final_weight_modal" style="font-size: x-small" > </label>
+      <label class="col-form-label col-sm-2 label-align-left " id="volume_modal" style="font-size: x-small" > </label>
+      <label class="col-form-label col-sm-5 label-align-left " id="weight_modal" style="font-size: x-small" > </label>
     </div>
     
     <div class="row">
-      <label class="col-form-label offset-sm-1 col-sm-2 label-align-left " style="font-size: x-small" ><strong>Guía:</strong> {{$package->guide ?? ''}}</label>
-      <label class="col-form-label col-sm-2 label-align-left " style="font-size: x-small" ><strong>Tula:</strong> {{$package->id_tula ?? ''}}</label>
-      <label class="col-form-label col-sm-2 label-align-left " style="font-size: x-small" ><strong>Paleta:</strong> {{$package->id_paddle ?? ''}}</label>
-      <label class="col-form-label col-sm-2 label-align-left " style="font-size: x-small" ><strong>Ruta:</strong> </label>
-      <label class="col-form-label col-sm-2 label-align-left " style="font-size: x-small" ><strong>Consolidado:</strong> </label>
+      <label class="col-form-label offset-sm-1 col-sm-2 label-align-left " id="_modal" style="font-size: x-small" > </label>
+      <label class="col-form-label col-sm-2 label-align-left " id="_modal" style="font-size: x-small" > </label>
+      <label class="col-form-label col-sm-2 label-align-left " id="_modal" style="font-size: x-small" ><strong>Paleta:</strong> {{$package_modal->id_paddle ?? ''}}</label>
+      <label class="col-form-label col-sm-2 label-align-left " id="_modal" style="font-size: x-small" ><strong>Ruta:</strong> </label>
+      <label class="col-form-label col-sm-2 label-align-left " id="_modal" style="font-size: x-small" ><strong>Consolidado:</strong> </label>
     </div>
 
     <table style="width: 50%;">
       <tr>
-        <th style="text-align: center; font-weight: bold; width: 79%; border-bottom-color: white;">CONCEPTO	</th>
-        <th style="text-align: center; font-weight: bold; width: 21%;">MONTO</th>
+        <th id="_modal" style="text-align: center; font-weight: bold; width: 79%; border-bottom-color: white;">CONCEPTO	</th>
+        <th id="_modal" style="text-align: center; font-weight: bold; width: 21%;">MONTO</th>
       </tr> 
       <tr>
-        <th style="text-align: center; font-weight: bold; width: 79%; border-bottom-color: white;">ENVIO INTERNACIONAL</th>
-        <th style="text-align: center; font-weight: normal; width: 21%;"></th>
+        <th id="_modal" style="text-align: center; font-weight: bold; width: 79%; border-bottom-color: white;">ENVIO INTERNACIONAL</th>
+        <th id="_modal" style="text-align: center; font-weight: normal; width: 21%;"></th>
       </tr> 
       <tr>
-        <th style="text-align: center; font-weight: bold; width: 21%;">TARIFA NACIONAL</th>
-        <th style="text-align: center; font-weight: normal; width: 79%; border-bottom-color: white;"></th>
+        <th id="_modal" style="text-align: center; font-weight: bold; width: 21%;">TARIFA NACIONAL</th>
+        <th id="_modal" style="text-align: center; font-weight: normal; width: 79%; border-bottom-color: white;"></th>
       </tr> 
       <tr>
-        <th style="text-align: center; font-weight: bold; width: 21%;">TOTAL CARGOS..</th>
-        <th style="text-align: center; font-weight: normal; width: 79%; border-bottom-color: white;"></th>
+        <th id="_modal" style="text-align: center; font-weight: bold; width: 21%;">TOTAL CARGOS..</th>
+        <th id="_modal" style="text-align: center; font-weight: normal; width: 79%; border-bottom-color: white;"></th>
       </tr> 
 
 
@@ -403,6 +440,59 @@
 @section('validation')
 
 <script>
+
+
+    $(document).on('click','#btnViewModal',function(){
+     
+        document.getElementById('id_modal').innerHTML = "<strong>Identificación del paquete:</strong> "+$(this).attr('data-id');
+        document.getElementById('client_modal').innerHTML = "<strong>Cliente:</strong> "+$(this).attr('data-casillero')+" "+$(this).attr('data-firstname')+" "+$(this).attr('data-firstlastname');
+        document.getElementById('tracking_modal').innerHTML = "<strong>Tracking:</strong> "+$(this).attr('data-tracking');
+        document.getElementById('direction_modal').innerHTML = "<strong>Dirección:</strong> "+$(this).attr('data-direction')+" "+$(this).attr('data-urbanization_received');
+        document.getElementById('name_agency_client_modal').innerHTML = "<strong>Agencia:</strong> "+$(this).attr('data-name_agency_client');
+        document.getElementById('agent_shipper_name_modal').innerHTML = "<strong>Vendedor:</strong> "+$(this).attr('data-agent_shipper_name');
+        document.getElementById('agent_name_modal').innerHTML = "<strong>Agente Vendedor:</strong> "+$(this).attr('data-agent_name');
+        document.getElementById('agency_name_modal').innerHTML = "<strong>Ubicación Oficina:</strong> "+$(this).attr('data-agency_name');
+        document.getElementById('arrival_date_modal').innerHTML = "<strong>Fecha de Llegada:</strong> "+$(this).attr('data-arrival_date');
+        document.getElementById('status_modal').innerHTML = "<strong>Estatus:</strong> "+$(this).attr('data-status');
+        document.getElementById('wharehouse_name_modal').innerHTML = "<strong>Almacen:</strong> "+$(this).attr('data-wharehouse_name');
+        document.getElementById('content_modal').innerHTML = "<strong>Contenido:</strong> "+$(this).attr('data-content');
+        document.getElementById('value_modal').innerHTML = "<strong>Valor:</strong> "+$(this).attr('data-value');
+        document.getElementById('country_name_modal').innerHTML = "<strong>Origen:</strong> "+$(this).attr('data-country_name');
+        document.getElementById('destination_country_name_modal').innerHTML = "<strong>Destino:</strong> "+$(this).attr('data-destination_country_name');
+        document.getElementById('delivery_company_name_modal').innerHTML = "<strong>Entregado por:</strong> "+$(this).attr('data-delivery_company_name');
+        document.getElementById('service_type_modal').innerHTML = "<strong>Tipo Servicio:</strong> "+$(this).attr('data-service_type');
+        document.getElementById('instruction_modal').innerHTML = "<strong>Instrucciones:</strong> "+$(this).attr('data-instruction')+" "+$(this).attr('data-instruction_type');
+        document.getElementById('description_modal').innerHTML = "<strong>Descrip/Coment:</strong> "+$(this).attr('data-description');
+        document.getElementById('status_modal').innerHTML = "<strong>Estatus:</strong> "+$(this).attr('data-status');
+
+        if($(this).attr('data-dangerous_goods') == true){
+          document.getElementById("dangerous_goods_modal").checked = true;
+        }
+        if($(this).attr('data-sed') == true){
+          document.getElementById("sed_modal").checked = true;
+        }
+        if($(this).attr('data-document') == true){
+          document.getElementById("document_modal").checked = true;
+        }
+        if($(this).attr('data-fragile') == true){
+          document.getElementById("fragile_modal").checked = true;
+        }
+
+        document.getElementById('starting_weight_modal').innerHTML = "<strong>Peso inicial:</strong> "+$(this).attr('data-starting_weight');
+        document.getElementById('final_weight_modal').innerHTML = "<strong>Peso Final:</strong> "+$(this).attr('data-final_weight');
+        document.getElementById('volume_modal').innerHTML = "<strong>Volumen:</strong> "+$(this).attr('data-volume');
+        document.getElementById('weight_modal').innerHTML = "<strong>Dimensiones:</strong> "+$(this).attr('data-length_weight')+" "+$(this).attr('data-width_weight')+" "+$(this).attr('data-high_weight');
+        document.getElementById('guide_modal').innerHTML = "<strong>Guía:</strong> "+$(this).attr('data-guide');
+        document.getElementById('id_tula_modal').innerHTML = "<strong>Tula:</strong> "+$(this).attr('data-id_tula');
+        document.getElementById('id_paddle_modal').innerHTML = " "+$(this).attr('data-id_paddle');
+        
+        
+        
+     });
+
+
+
+
     function searchIndex(){
       document.getElementById("formSearch").submit();
     }
