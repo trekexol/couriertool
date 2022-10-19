@@ -156,7 +156,7 @@
                $volume += $package->volume;
 
            @endphp
-            <tr>
+            <tr id="tr{{$package->id}}" >
               <td class="text-center">
                 <a href="{{ route('packages.create',$package->id) }}"  title="Seleccionar">{{$package->id}}</a>
               </td>
@@ -534,4 +534,59 @@
 
 </script>
 @endif
+
+  @isset($packages)
+    @foreach ($packages as $package)
+      <script>
+
+        if("{{$package->status}}" == "(1) Recibido en Origen"){
+          document.getElementById("tr{{$package->id}}").style.color = "black";
+        }
+        if("{{$package->status}}" == "(2) Embalado Para Despacho"){
+          document.getElementById("tr{{$package->id}}").style.color = "green";
+        }
+        if("{{$package->status}}" == "(3) En Transporte Internacional"){
+          document.getElementById("tr{{$package->id}}").style.color = "#D7837F";
+        }
+        if("{{$package->status}}" == "(4) Recibido Destino Principal"){
+          document.getElementById("tr{{$package->id}}").style.color = "blue";
+        }
+        if("{{$package->status}}" == "(5) En Ruta de Entrega"){
+          document.getElementById("tr{{$package->id}}").style.color = "#7FFFD4";
+        }
+        if("{{$package->status}}" == "(7) Entregado Cliente"){
+          document.getElementById("tr{{$package->id}}").style.color = "#FF8C00";
+        }
+        if("{{$package->status}}" == "(8) Entregado a Transporte"){
+          document.getElementById("tr{{$package->id}}").style.color = "#FF1493";
+        }
+        if("{{$package->status}}" == "(9) Retenido / Hold"){
+          document.getElementById("tr{{$package->id}}").style.color = "#DC143C";
+        }
+        if("{{$package->status}}" == "(10) Devuelto a la oficina"){
+          document.getElementById("tr{{$package->id}}").style.color = "#FF7F50";
+        }
+        if("{{$package->status}}" == "(11) Cliente no contactado"){
+          document.getElementById("tr{{$package->id}}").style.color = "#D2691E";
+        }
+        if("{{$package->status}}" == "(32) En Transporte a Destino"){
+          document.getElementById("tr{{$package->id}}").style.color = "#8A2BE2";
+        }
+        if("{{$package->status}}" == "(34) En Aduana"){
+          document.getElementById("tr{{$package->id}}").style.color = "#800000";
+        }
+        if("{{$package->status}}" == "(66) Extraviado"){
+          document.getElementById("tr{{$package->id}}").style.color = "#32CD32";
+        }
+        if("{{$package->status}}" == "(88) En Abandono"){
+          document.getElementById("tr{{$package->id}}").style.color = "black";
+        }
+        if("{{$package->status}}" == "(89) Devolucion al Proveedor"){
+          document.getElementById("tr{{$package->id}}").style.color = "#FFFF00";
+        }
+
+        
+      </script>
+    @endforeach
+  @endisset
 @endsection
