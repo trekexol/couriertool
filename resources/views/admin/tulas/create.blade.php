@@ -79,36 +79,36 @@
                 </div>
                 <label class="col-form-label col-sm-3 label-align " for="cubic_foot">Pié Cúbico:</label>
                 <div class="col-sm-3">
-                  <input id="cubic_foot" name="cubic_foot" class="date-picker form-control"  type="text" required="required" value="{{ number_format(bcdiv(($tula->cubic_foot ?? 0), '1', 2), 2, ',', '.') ?? null }}">
+                  <input id="cubic_foot" name="cubic_foot" class="date-picker form-control"  type="text"  value="{{ number_format(bcdiv(($tula->cubic_foot ?? 0), '1', 2), 2, ',', '.') ?? null }}">
                 </div>
               </div>
            
               <div class="item form-group">
                 <label class="col-form-label col-sm-2 label-align " for="dimension">Dimensiones:</label>
                 <div class="col-sm-1">
-                  <input id="dimension_width" name="dimension_width" placeholder="Ancho" class="date-picker form-control"  type="text" required="required" value="{{ number_format(bcdiv(($tula->dimension_width ?? 0), '1', 2), 2, ',', '.') ?? null }}">
+                  <input id="dimension_width" name="dimension_width" placeholder="Ancho" class="date-picker form-control"  type="text"  value="{{ number_format(bcdiv(($tula->dimension_width ?? 0), '1', 2), 2, ',', '.') ?? null }}">
                 </div>
                 <div class="col-sm-1">
-                  <input id="dimension_length" name="dimension_length" placeholder="Largo" class="date-picker form-control"  type="text" required="required" value="{{ number_format(bcdiv(($tula->dimension_length ?? 0), '1', 2), 2, ',', '.') ?? null }}">
+                  <input id="dimension_length" name="dimension_length" placeholder="Largo" class="date-picker form-control"  type="text"  value="{{ number_format(bcdiv(($tula->dimension_length ?? 0), '1', 2), 2, ',', '.') ?? null }}">
                 </div>
                 <div class="col-sm-1">
-                  <input id="dimension_high" name="dimension_high" placeholder="Alto" class="date-picker form-control"  type="text" required="required" value="{{ number_format(bcdiv(($tula->dimension_high ?? 0), '1', 2), 2, ',', '.') ?? null }}">
+                  <input id="dimension_high" name="dimension_high" placeholder="Alto" class="date-picker form-control"  type="text"  value="{{ number_format(bcdiv(($tula->dimension_high ?? 0), '1', 2), 2, ',', '.') ?? null }}">
                 </div>
 
                 <label class="col-form-label col-sm-3 label-align " for="dimension">Volumen:</label>
                 <div class="col-sm-3">
-                  <input id="volume" name="volume"  class="date-picker form-control"  type="text" required="required" value="{{ number_format(bcdiv(($tula->volume ?? 0), '1', 2), 2, ',', '.') ?? null }}">
+                  <input id="volume" name="volume"  class="date-picker form-control"  type="text"  value="{{ number_format(bcdiv(($tula->volume ?? 0), '1', 2), 2, ',', '.') ?? null }}">
                 </div>
               </div>
 
               <div class="item form-group">
                 <label class="col-form-label col-sm-2 label-align " for="dimension">Peso en lbs:</label>
                 <div class="col-sm-3">
-                  <input id="weight" name="weight"  class="date-picker form-control"  type="text" required="required" value="{{ number_format(bcdiv(($tula->weight ?? 0), '1', 2), 2, ',', '.') ?? null }}">
+                  <input id="weight" name="weight"  class="date-picker form-control"  type="text"  value="{{ number_format(bcdiv(($tula->weight ?? 0), '1', 2), 2, ',', '.') ?? null }}">
                 </div>
                 <label class="col-form-label col-sm-3 label-align " for="dimension">Peso Cargable:</label>
                 <div class="col-sm-3">
-                  <input id="loadable_weight" name="loadable_weight"  class="date-picker form-control"  type="text" required="required" value="{{ number_format(bcdiv(($tula->loadable_weight ?? 0), '1', 2), 2, ',', '.') ?? null }}">
+                  <input id="loadable_weight" name="loadable_weight"  class="date-picker form-control"  type="text"  value="{{ number_format(bcdiv(($tula->loadable_weight ?? 0), '1', 2), 2, ',', '.') ?? null }}">
                 </div>
               </div>
 
@@ -141,18 +141,18 @@
                   </div>
                   <label class="col-form-label col-sm-4 label-align " for="reference">Referencia:</label>
                   <div class="col-sm-3">
-                    <input id="reference" name="reference"  class="date-picker form-control"  type="text" required="required" value="{{ $tula->reference ?? '' }}">
+                    <input id="reference" name="reference"  class="date-picker form-control"  type="text"  value="{{ $tula->reference ?? '' }}">
                   </div>
               </div>
 
               <div class="item form-group">
                 <label class="col-form-label col-sm-2 label-align " for="dimension">Expediente:</label>
                 <div class="col-sm-3">
-                  <input id="record" name="record"  class="date-picker form-control"  type="text" required="required" value="{{ $tula->record ?? '' }}">
+                  <input id="record" name="record"  class="date-picker form-control"  type="text"  value="{{ $tula->record ?? '' }}">
                 </div>
                 <label class="col-form-label col-sm-3 label-align " for="dimension">Número de Paquetes:</label>
                 <div class="col-sm-3">
-                  <input id="number_of_packages" name="number_of_packages"  class="date-picker form-control"  type="text" required="required" value="{{ $tula->number_of_packages ?? '' }}">
+                  <input id="number_of_packages" name="number_of_packages"  class="date-picker form-control"  type="text"  value="{{ $tula->number_of_packages ?? '' }}">
                 </div>
               </div>
 
