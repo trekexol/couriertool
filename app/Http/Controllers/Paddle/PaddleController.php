@@ -10,6 +10,7 @@ use App\Models\Package\Package;
 use App\Models\Paddle\Paddle;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PaddleController extends Controller
 {
@@ -91,6 +92,8 @@ class PaddleController extends Controller
 
             $package->save();
 
+            $this->updatePaddle($request);
+
             return redirect('/paddles/create/'.$request->id_paddle.'')->withSuccess('Se ha registrado exitosamente el Paquete!');
         
         }catch(Exception $e){
@@ -99,6 +102,35 @@ class PaddleController extends Controller
 
     }
 
+    public function updatePaddle($request){
+        
+        $consult_package_lumps = Package::leftJoin('package_lumps','package_lumps.id_package','packages.id')
+        ->where('packages.id_paddle',$request->id_paddle)
+        ->select(
+         DB::raw('SUM(package_lumps.length_weight) As sum_length_weight')
+        ,DB::raw('SUM(package_lumps.width_weight) As sum_width_weight')
+        ,DB::raw('SUM(package_lumps.high_weight) As sum_high_weight')
+        )
+        ->first();
+
+        $consult_packages = Package::
+        where('packages.id_paddle',$request->id_paddle)
+        ->select(
+        DB::raw('SUM(packages.volume) As sum_volume')
+        ,DB::raw('SUM(packages.starting_weight) As sum_starting_weight')
+        )
+        ->first();
+
+       
+        $paddle = Paddle::findOrFail($request->id_paddle);
+        $paddle->dimension_width =  $consult_package_lumps->sum_width_weight;
+        $paddle->dimension_length =  $consult_package_lumps->sum_length_weight;
+        $paddle->dimension_high =  $consult_package_lumps->sum_high_weight;
+        $paddle->volume = $consult_packages->sum_volume;
+        $paddle->weight = $consult_packages->sum_starting_weight;
+
+        $paddle->save();
+    }
     public function validationStorePackage($package,$request){
        
         if($package->id_paddle == $request->id_paddle){

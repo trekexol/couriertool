@@ -11,6 +11,7 @@ use App\Models\Package\Package;
 use App\Models\Tula\Tula;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TulaController extends Controller
 {
@@ -65,7 +66,6 @@ class TulaController extends Controller
         $tula->volume = str_replace(',', '.', str_replace('.', '', $request->volume));
         $tula->weight = str_replace(',', '.', str_replace('.', '', $request->weight));
         $tula->loadable_weight = str_replace(',', '.', str_replace('.', '', $request->loadable_weight));
-        $tula->volume = str_replace(',', '.', str_replace('.', '', $request->volume));
         $tula->type_of_service = "Aéreo";
         $tula->class = $request->class;
         $tula->loose_packages = $request->loose_packages;
@@ -94,12 +94,46 @@ class TulaController extends Controller
         $package->id_tula = $request->id_tula;
         $package->save();
 
+       $this->updateTula($request);
+
         return redirect('/tulas/create/'.$request->id_tula.'')->withSuccess('Se ha registrado exitosamente el Paquete!');
         
         }catch(Exception $e){
             return redirect('/tulas/create/'.$request->id_tula.'')->withDanger('No se ha encontrado el Paquete!');
         }
 
+    }
+
+    public function updateTula($request){
+        
+        $consult_package_lumps = Package::leftJoin('package_lumps','package_lumps.id_package','packages.id')
+        ->where('packages.id_tula',$request->id_tula)
+        ->select(
+         DB::raw('SUM(package_lumps.length_weight) As sum_length_weight')
+        ,DB::raw('SUM(package_lumps.width_weight) As sum_width_weight')
+        ,DB::raw('SUM(package_lumps.high_weight) As sum_high_weight')
+        )
+        ->first();
+
+        $consult_packages = Package::
+        where('packages.id_tula',$request->id_tula)
+        ->select(
+        DB::raw('SUM(packages.volume) As sum_volume')
+        ,DB::raw('SUM(packages.starting_weight) As sum_starting_weight')
+        ,DB::raw('SUM(packages.cubic_foot) As sum_cubic_foot')
+        )
+        ->first();
+
+       
+        $tula = Tula::findOrFail($request->id_tula);
+        $tula->cubic_foot = $consult_packages->sum_cubic_foot;
+        $tula->dimension_width =  $consult_package_lumps->sum_width_weight;
+        $tula->dimension_length =  $consult_package_lumps->sum_length_weight;
+        $tula->dimension_high =  $consult_package_lumps->sum_high_weight;
+        $tula->volume = $consult_packages->sum_volume;
+        $tula->weight = $consult_packages->sum_starting_weight;
+
+        $tula->save();
     }
 
     public function validationStorePackage($package,$request){
@@ -133,7 +167,6 @@ class TulaController extends Controller
         $tula->volume = str_replace(',', '.', str_replace('.', '', $request->volume));
         $tula->weight = str_replace(',', '.', str_replace('.', '', $request->weight));
         $tula->loadable_weight = str_replace(',', '.', str_replace('.', '', $request->loadable_weight));
-        $tula->volume = str_replace(',', '.', str_replace('.', '', $request->volume));
         $tula->type_of_service = $request->type_of_service;
         $tula->class = $request->class;
         $tula->loose_packages = $request->loose_packages;
