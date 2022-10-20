@@ -64,7 +64,7 @@
               <div class="item form-group">
                 <label class="col-form-label col-sm-1 label-align " for="id_destination_state">Destino:</label>
                 <div class="col-sm-3">
-                    <select class="select2_group form-control" name="id_destination_state" required>
+                    <select class="select2_group form-control" name="id_destination_state" >
                       @if (isset($paddle))
                         <option value="{{ $paddle->id_destination_state ?? null }}">{{ $paddle->destination_states['name'] ?? null }}</option>
                         <option value="">---------------------</option>
@@ -83,29 +83,29 @@
               <div class="item form-group">
                 <label class="col-form-label col-sm-1 label-align " for="dimension">Dimensiones:</label>
                 <div class="col-sm-2">
-                  <input id="dimension_width" name="dimension_width" placeholder="Ancho" class="date-picker form-control"  type="text" required="required" value="{{ number_format(bcdiv(($paddle->dimension_width ?? 0), '1', 2), 2, ',', '.') ?? null }}">
+                  <input id="dimension_width" name="dimension_width" placeholder="Ancho" class="date-picker form-control"  type="text"  value="{{ number_format(bcdiv(($paddle->dimension_width ?? 0), '1', 2), 2, ',', '.') ?? null }}">
                 </div>
                 <div class="col-sm-2">
-                  <input id="dimension_length" name="dimension_length" placeholder="Largo" class="date-picker form-control"  type="text" required="required" value="{{ number_format(bcdiv(($paddle->dimension_length ?? 0), '1', 2), 2, ',', '.') ?? null }}">
+                  <input id="dimension_length" name="dimension_length" placeholder="Largo" class="date-picker form-control"  type="text"  value="{{ number_format(bcdiv(($paddle->dimension_length ?? 0), '1', 2), 2, ',', '.') ?? null }}">
                 </div>
                 <div class="col-sm-2">
-                  <input id="dimension_high" name="dimension_high" placeholder="Alto" class="date-picker form-control"  type="text" required="required" value="{{ number_format(bcdiv(($paddle->dimension_high ?? 0), '1', 2), 2, ',', '.') ?? null }}">
+                  <input id="dimension_high" name="dimension_high" placeholder="Alto" class="date-picker form-control"  type="text"  value="{{ number_format(bcdiv(($paddle->dimension_high ?? 0), '1', 2), 2, ',', '.') ?? null }}">
                 </div>
 
                 <label class="col-form-label col-sm-1 label-align " for="dimension">Volumen:</label>
                 <div class="col-sm-3">
-                  <input id="volume" name="volume"  class="date-picker form-control"  type="text" required="required" value="{{ number_format(bcdiv(($paddle->volume ?? 0), '1', 2), 2, ',', '.') ?? null }}">
+                  <input id="volume" name="volume"  class="date-picker form-control"  type="text"  value="{{ number_format(bcdiv(($paddle->volume ?? 0), '1', 2), 2, ',', '.') ?? null }}">
                 </div>
               </div>
 
               <div class="item form-group">
                 <label class="col-form-label col-sm-1 label-align " for="dimension">Peso en lbs:</label>
                 <div class="col-sm-3">
-                  <input id="weight" name="weight"  class="date-picker form-control"  type="text" required="required" value="{{ number_format(bcdiv(($paddle->weight ?? 0), '1', 2), 2, ',', '.') ?? null }}">
+                  <input id="weight" name="weight"  class="date-picker form-control"  type="text"  value="{{ number_format(bcdiv(($paddle->weight ?? 0), '1', 2), 2, ',', '.') ?? null }}">
                 </div>
                 <label class="col-form-label col-sm-4 label-align " for="dimension">Peso Cargable:</label>
                 <div class="col-sm-3">
-                  <input id="loadable_weight" name="loadable_weight"  class="date-picker form-control"  type="text" required="required" value="{{ number_format(bcdiv(($paddle->loadable_weight ?? 0), '1', 2), 2, ',', '.') ?? null }}">
+                  <input id="loadable_weight" name="loadable_weight"  class="date-picker form-control"  type="text"  value="{{ number_format(bcdiv(($paddle->loadable_weight ?? 0), '1', 2), 2, ',', '.') ?? null }}">
                 </div>
               </div>
 
@@ -113,7 +113,7 @@
               <div class="item form-group">
                 <label class="col-form-label col-sm-1 label-align " for="type_of_service">Servicio:</label>
                 <div class="col-sm-3">
-                    <select class="select2_group form-control" name="type_of_service" required>
+                    <select class="select2_group form-control" name="type_of_service" >
                       @if (isset($paddle))
                         <option value="{{ $paddle->type_of_service ?? null }}">{{ $paddle->type_of_service ?? null }}</option>
                         <option value="">---------------------</option>
@@ -127,7 +127,7 @@
                 </div>
                 <label class="col-form-label col-sm-4 label-align " for="class">Clase:</label>
                 <div class="col-sm-2">
-                    <select class="select2_group form-control" name="class" required>
+                    <select class="select2_group form-control" name="class" >
                       @if (isset($paddle))
                         <option value="{{ $paddle->class ?? null }}">{{ $paddle->class ?? null }}</option>
                         <option value="">---------------------</option>
@@ -143,7 +143,7 @@
               <div class="item form-group">
                   <label class="col-form-label col-sm-1 label-align " for="loose_packages">Bultos sueltos:</label>
                   <div class="col-md-1 col-sm-1 ">
-                  <p> Si: <input type="radio" class="flat" name="loose_packages" id="loose_packagesYes" value="Yes"  required /> 
+                  <p> Si: <input type="radio" class="flat" name="loose_packages" id="loose_packagesYes" value="Yes"   /> 
                   </div>
                   <div class="col-md-1 col-sm-1 ">
                       No: <input type="radio" class="flat" name="loose_packages" id="loose_packagesNo" value="No" checked=""/>
@@ -151,18 +151,18 @@
                   </div>
                   <label class="col-form-label col-sm-5 label-align " for="reference">Referencia:</label>
                   <div class="col-sm-3">
-                    <input id="reference" name="reference"  class="date-picker form-control"  type="text" required="required" value="{{ $paddle->reference ?? '' }}">
+                    <input id="reference" name="reference"  class="date-picker form-control"  type="text"  value="{{ $paddle->reference ?? '' }}">
                   </div>
               </div>
 
               <div class="item form-group">
                 <label class="col-form-label col-sm-1 label-align " for="dimension">Expediente:</label>
                 <div class="col-sm-3">
-                  <input id="record" name="record"  class="date-picker form-control"  type="text" required="required" value="{{ $paddle->record ?? '' }}">
+                  <input id="record" name="record"  class="date-picker form-control"  type="text"  value="{{ $paddle->record ?? '' }}">
                 </div>
                 <label class="col-form-label col-sm-4 label-align " for="dimension">Número de Paquetes:</label>
                 <div class="col-sm-3">
-                  <input id="number_of_packages" name="number_of_packages"  class="date-picker form-control"  type="text" required="required" value="{{ $paddle->number_of_packages ?? '' }}">
+                  <input id="number_of_packages" name="number_of_packages"  class="date-picker form-control"  type="text"  value="{{ $paddle->number_of_packages ?? 0 }}">
                 </div>
               </div>
 

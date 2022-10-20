@@ -64,7 +64,7 @@
               <div class="item form-group">
                 <label class="col-form-label col-sm-2 label-align " for="id_destination_state">Destino:</label>
                 <div class="col-sm-3">
-                    <select class="select2_group form-control" name="id_destination_state" required>
+                    <select class="select2_group form-control" name="id_destination_state">
                       @if (isset($tula))
                         <option value="{{ $tula->id_destination_state ?? null }}">{{ $tula->destination_states['name'] ?? null }}</option>
                         <option value="">---------------------</option>
@@ -117,7 +117,7 @@
                
                 <label class="col-form-label col-sm-4 label-align " for="class">Clase:</label>
                 <div class="col-sm-2">
-                    <select class="select2_group form-control" name="class" required>
+                    <select class="select2_group form-control" name="class" >
                       @if (isset($tula))
                         <option value="{{ $tula->class ?? null }}">{{ $tula->class ?? null }}</option>
                         <option value="">---------------------</option>
@@ -133,7 +133,7 @@
               <div class="item form-group">
                   <label class="col-form-label col-sm-2 label-align " for="loose_packages">Bultos sueltos:</label>
                   <div class="col-md-1 col-sm-1 ">
-                  <p> Si: <input type="radio" class="flat" name="loose_packages" id="loose_packagesYes" value="Yes"  required /> 
+                  <p> Si: <input type="radio" class="flat" name="loose_packages" id="loose_packagesYes" value="Yes"   /> 
                   </div>
                   <div class="col-md-1 col-sm-1 ">
                       No: <input type="radio" class="flat" name="loose_packages" id="loose_packagesNo" value="No" checked=""/>
@@ -152,7 +152,7 @@
                 </div>
                 <label class="col-form-label col-sm-3 label-align " for="dimension">Número de Paquetes:</label>
                 <div class="col-sm-3">
-                  <input id="number_of_packages" name="number_of_packages"  class="date-picker form-control"  type="text"  value="{{ $tula->number_of_packages ?? '' }}">
+                  <input id="number_of_packages" name="number_of_packages"  class="date-picker form-control"  type="text"  value="{{ $tula->number_of_packages ?? 0 }}">
                 </div>
               </div>
 
