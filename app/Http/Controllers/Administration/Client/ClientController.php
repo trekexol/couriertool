@@ -132,7 +132,7 @@ class ClientController extends Controller
 
     public function select()
     {
-        $clients = Client::all();
+        $clients = Client::paginate(1000);
 
         return view('admin.packages.selects.select_client',compact('clients'));
     

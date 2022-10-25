@@ -126,12 +126,13 @@ class PackageController extends Controller
 
         $type_of_packagings = TypeOfPackaging::orderBy('description','asc')->get();
 
-        $clients = Client::orderBy('firstname','asc')->get();
-
+       
         $date = Carbon::now();
         $datenow = $date->format('Y-m-d'); 
+
        
-        return view('admin.packages.create',compact('datenow','agencies','package_type_of_goods','package_lumps','package','clients','agents','countries','wharehouses','delivery_companies','type_of_goods','type_of_packagings'));
+        return view('admin.packages.create',compact('datenow','agencies','package_type_of_goods','package_lumps',
+        'package','agents','countries','wharehouses','delivery_companies','type_of_goods','type_of_packagings'));
     
     }
 
@@ -217,11 +218,10 @@ class PackageController extends Controller
 
         $type_of_packagings = TypeOfPackaging::orderBy('description','asc')->get();
 
-        $clients = Client::orderBy('firstname','asc')->get();
-
         $agencies = Agency::orderBy('name','asc')->get();
-       
-        return view('admin.packages.create',compact('agencies','tracking','package_type_of_goods','package_lumps','package','clients','agents','countries','wharehouses','delivery_companies','type_of_goods','type_of_packagings'));
+
+        return view('admin.packages.create',compact('agencies','tracking','package_type_of_goods','package_lumps','package',
+        'agents','countries','wharehouses','delivery_companies','type_of_goods','type_of_packagings'));
     
     }
  

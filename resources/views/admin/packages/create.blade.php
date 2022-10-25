@@ -91,21 +91,7 @@
              
                   <input type="text" id="client_casillero" onblur="getClient();" name="client_casillero" required="required" class="form-control " value="{{$package->clients['casillero'] ?? $client->casillero ?? ''}}">
              
-                  
-                  <!--    <select class="select2_group form-control js-example-matcher" data-live-search="true" data-show-subtext="true" name="id_client" required>
-                      @if (isset($package))
-                        <option value="{{ $package->id_client ?? null }}">{{$package->clients['casillero'] ?? ''}} - {{ $package->clients['firstname'] ?? null }} {{ $package->clients['firstlastname'] ?? null }}</option>
-                        <option value="">---------------------</option>
-                      @else
-                        <option value="">Seleccione una Opción</option>
-                      @endif
-                      @if (isset($clients)) 
-                        @foreach ($clients as $client)
-                          <option value="{{ $client->id }}">{{$client->casillero ?? ''}} - {{ $client->firstname ?? '' }} {{ $client->firstlastname ?? '' }}</option>
-                        @endforeach
-                      @endif
-                     
-                    </select>-->
+               
                 </div>
                 
                   <a href="{{ route('clients.select') }}"  title="Buscar" ><i class="fa fa-search"></i></a>  
@@ -714,6 +700,8 @@
     
         var client_casillero    = document.getElementById("client_casillero").value;
         
+      if(client_casillero != "")
+      {
         $.ajax({
             url:"{{ route('clients.search','') }}" + '/' + client_casillero,
             beforSend:()=>{
@@ -743,6 +731,8 @@
               alert("No se Encontro el Cliente");
             }
         })
+
+      }
     }
 
     $("#formTypeofGoods").hide();
