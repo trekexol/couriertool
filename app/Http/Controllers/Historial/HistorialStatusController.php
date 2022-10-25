@@ -37,9 +37,9 @@ class HistorialStatusController extends Controller
         
         $package->save();
 
-        $mail_controller = new MailController();
+       /* $mail_controller = new MailController();
 
-        $mail_controller->sendEmail($request,$package);
+        $mail_controller->sendEmail($request,$package);*/
        
 
         return redirect('historial_status/viewPackage/'.$request->id_package.'')->withSuccess('Se ha registrado el historial exitosamente!');

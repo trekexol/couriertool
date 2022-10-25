@@ -27,45 +27,42 @@
               <div class="col-sm-12">
                 <div class="card-box table-responsive">
       
-        <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
-          <thead>
-            <tr>
-              <th style="width: 5%;"></th>
-              <th>Cédula</th>
-              <th>Nombre</th>
-              <th>Dirección</th>
-              <th>Teléfono</th>
-            </tr>
-          </thead>
-          @isset($clients)
-            @foreach ($clients as $client)
-            <tr>
-              <td class="text-center">
-                <a href="{{ route('packages.createWithClient',[$client->id,$id_package ?? null]) }}"  title="Seleccionar"><i class="fa fa-check"></i></a>
-              </td>
-              <td>{{$client->type_cedula ?? ''}} {{$client->cedula ?? ''}}</td>
-              <td>{{$client->firstname ?? ''}} {{$client->firstlastname ?? ''}}</td>
-              <td>{{$client->direction ?? ''}}</td>
-              <td>{{$client->phone_room ?? ''}}</td>
-            </tr>
-            @endforeach
-          @endisset
-          
-
-          </table>
+                  <table id="datatable-buttons" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th style="width: 5%;"></th>
+                        <th>Cédula</th>
+                        <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
+                      </tr>
+                    </thead>
+                    @isset($clients)
+                      @foreach ($clients as $client)
+                      <tr>
+                        <td class="text-center">
+                          <a href="{{ route('packages.createWithClient',[$client->id,$id_package ?? null]) }}"  title="Seleccionar"><i class="fa fa-check"></i></a>
+                        </td>
+                        <td>{{$client->type_cedula ?? ''}} {{$client->cedula ?? ''}}</td>
+                        <td>{{$client->firstname ?? ''}} {{$client->firstlastname ?? ''}}</td>
+                        <td>{{$client->direction ?? ''}}</td>
+                        <td>{{$client->phone_room ?? ''}}</td>
+                      </tr>
+                      @endforeach
+                    @endisset
+                    </table>
+                   
         </div>
+         
       </div>
+    
     </div>
+    
 </div>
+
     </div>
   </div>
 </div>
 
 @endsection
 
-@section('validation')
-
-<script>
-   
-</script>
-@endsection

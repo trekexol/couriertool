@@ -84,7 +84,7 @@
                               @endif
                             </div>
                             <div class="col-sm-2">
-                              <a href="{{route($return ?? 'home')}}" class="btn btn-success offset-sm-1" id="enviar">Volver</a>
+                              <a href="{{route($return ?? 'packages.index')}}" class="btn btn-success offset-sm-1" id="enviar">Volver</a>
                             </div>
                         </div>
 
